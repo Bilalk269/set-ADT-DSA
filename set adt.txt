@@ -1,0 +1,78 @@
+class Set:
+	def __init__(self, *initEl):
+		self._theElements = list(initEl)
+	def __len__(self):
+		return len(self._theElements)
+	def __contains__(self, el):
+		return el in self._theElements
+	def add(self, el):
+		if el not in self:
+		self._theElements.append(el)
+
+	def remove(self, el):
+		assert el not in self, "Element not found in the set"
+		self._theElements.remove(el)
+	def __eq__(self, setB):
+		if len(self) == len(setB):
+			return self.isSubsetOf(setB)
+		else:
+		return False
+	def isSubsetOf(self, setB):
+		for el in self:
+			if el not in setB:
+				return False
+			return True
+	def union(self, setB):
+		newSet = Set()
+		newSet._theElements.extend(self._theElements)
+		for el in setB:
+			if el not in self:
+				newSet._theElements.append(el)
+				return newSet._theElements
+	def intersect(self, setB):
+		newSet = Set()
+		for el in setB:
+			if el in self:
+			newSet._theElements.append(el)
+ 			return newSet._theElements
+ 	def difference(self, setB):
+ 		newSet = Set()
+ 		newSet._theElements.extend(self._theElements)
+ 		for el in setB:
+ 			if el in self:
+ 			newSet._theElements.remove(el)
+ 			return newSet._theElements
+	def isProperSubsetOf(self, setB):
+ 		if len(self) != len(setB):
+ 			for el in setB:
+ 				if el not in self:
+ 					return False
+ 				return True
+ 		else:
+ 			return False
+ 	def __iter__(self):
+ 		return _SetIterator(self._theElements)
+ 	def str(self):
+ 		tempStr = "{ "
+ 		for el in self:
+ 			if self._theElements.index(el) == len(self)-1:
+ 				tempStr += str(el)
+ 			else:
+ 				tempStr += str(el) + ", "
+ 				tempStr += " }"
+ 				print(tempStr)
+class _SetIterator:
+ 	def __init__(self, theSet):
+ 		self._setRef = theSet
+ 		self._curNDX = 0
+ 	def __iter__(self):
+ 		return self
+ 	def __next__(self):
+		if self._curNDX < len(self._setRef):
+			 entry = self._setRef[self._curNDX]
+			 self._curNDX += 1
+ 			return entry
+ 		else:
+ 			raise StopIteration
+
+
